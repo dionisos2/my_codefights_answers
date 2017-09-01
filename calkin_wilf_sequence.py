@@ -36,8 +36,27 @@ def bruteForce():
                 a, b = leftChild([a, b])
 
 
+def compactBruteForce():
+    a, b = 1, 1
+    while 1:
+        yield [a, b]
+        if a < b:
+            a, b = b, b - a
+        else :
+            depth = 0
+            while a > b:
+                a, b = [a - b, b]
+                depth += 1
+            if a != b:
+                a, b = b, b - a
+            else:
+                depth += 1
+            for i in range(depth):
+                a, b = a, a+b
+
+
 def calkinWilfSequence(number):
-    sequence = bruteForce()
+    sequence = compactBruteForce()
 
     result = 0
     while next(sequence) != number:
