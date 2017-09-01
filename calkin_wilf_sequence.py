@@ -1,5 +1,22 @@
 # https://codefights.com/arcade/python-arcade/yin-and-yang/ynSRuyh93ZffkPjtv
 
+import time
+
+def benchmark(func):
+    """
+        st decorator to calculate the total time of a func
+    """
+
+    def decoredFunc(*args, **keyArgs):
+        t1 = time.time()
+        r = func(*args, **keyArgs)
+        t2 = time.time()
+        print(f'Function={func.__name__}, Time={t2 - t1}')
+        return r
+
+    return decoredFunc
+
+
 def rightBrother(number):
     a, b = number
     # parent = a/b → leftChild = a/(a+b) → b = a+b-a
@@ -69,9 +86,9 @@ def avoidLoop():
                 depth += 1
             b += depth * a
 
-def calkinWilfSequence(number):
-    sequence = avoidLoop()
-
+def calkinWilfSequence(number, sequence = None):
+    if sequence == None:
+        sequence = avoidLoop()
     result = 0
     while next(sequence) != number:
         result += 1
@@ -90,3 +107,11 @@ testCases = [
 for testCase in testCases:
     print("calkinWilfSequence("+str(testCase[0])+") should be " + str(testCase[1]))
     print("calkinWilfSequence("+str(testCase[0])+") = " + str(calkinWilfSequence(testCase[0])))
+
+@benchmark
+def testWithSequence(func):
+    calkinWilfSequence([1, 20], func())
+
+testWithSequence(bruteForce)
+testWithSequence(compactBruteForce)
+testWithSequence(avoidLoop)
