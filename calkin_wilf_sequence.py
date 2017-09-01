@@ -86,9 +86,17 @@ def avoidLoop():
                 depth += 1
             b += depth * a
 
+
+def avoidConditional():
+    a, b = 1, 1
+    while 1:
+        yield [a, b]
+        a, b = (b, b + a - 2*(a%b))
+
+
 def calkinWilfSequence(number, sequence = None):
     if sequence == None:
-        sequence = avoidLoop()
+        sequence = avoidConditional()
     result = 0
     while next(sequence) != number:
         result += 1
@@ -115,3 +123,4 @@ def testWithSequence(func):
 testWithSequence(bruteForce)
 testWithSequence(compactBruteForce)
 testWithSequence(avoidLoop)
+testWithSequence(avoidConditional)
