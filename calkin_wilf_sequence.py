@@ -54,9 +54,23 @@ def compactBruteForce():
             for i in range(depth):
                 a, b = a, a+b
 
+def avoidLoop():
+    a, b = 1, 1
+    while 1:
+        yield [a, b]
+        if a < b:
+            a, b = b, b - a
+        else :
+            depth = a//b
+            a = a%b
+            if a != b:
+                a, b = b, b - a
+            else:
+                depth += 1
+            b += depth * a
 
 def calkinWilfSequence(number):
-    sequence = compactBruteForce()
+    sequence = avoidLoop()
 
     result = 0
     while next(sequence) != number:
