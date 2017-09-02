@@ -1,21 +1,6 @@
 # https://codefights.com/arcade/python-arcade/yin-and-yang/ynSRuyh93ZffkPjtv
 
-import time
-
-def benchmark(func):
-    """
-        st decorator to calculate the total time of a func
-    """
-
-    def decoredFunc(*args, **keyArgs):
-        t1 = time.time()
-        r = func(*args, **keyArgs)
-        t2 = time.time()
-        print(f'Function={func.__name__}, Time={t2 - t1}')
-        return r
-
-    return decoredFunc
-
+from utils import benchmark
 
 def rightBrother(number):
     a, b = number
@@ -103,6 +88,25 @@ def calkinWilfSequence(number, sequence = None):
     return result
 
 
+def calkinWilfSequenceQuick(number):
+    if number == [1, 1]:
+        return 0
+
+    path = ''
+    a, b = number
+    while [a, b] != [1, 1]:
+        if a < b:
+            b -= a
+            path += '0'
+        else:
+            a -= b
+            path += '1'
+    # 1+2+4+8+…+2^(n-1) = (2^n-1)/(2-1)=2^n-1
+    addForDepth = 2**len(path)-1
+
+    return addForDepth + int(path[::-1], 2)
+
+
 testCases = [
     ([1, 3], 3),
     ([1, 1], 0),
@@ -114,7 +118,7 @@ testCases = [
 
 for testCase in testCases:
     print("calkinWilfSequence("+str(testCase[0])+") should be " + str(testCase[1]))
-    print("calkinWilfSequence("+str(testCase[0])+") = " + str(calkinWilfSequence(testCase[0])))
+    print("calkinWilfSequence("+str(testCase[0])+") = " + str(calkinWilfSequenceQuick(testCase[0])))
 
 @benchmark
 def testWithSequence(func):
@@ -124,3 +128,4 @@ testWithSequence(bruteForce)
 testWithSequence(compactBruteForce)
 testWithSequence(avoidLoop)
 testWithSequence(avoidConditional)
+benchmark(calkinWilfSequenceQuick)([1, 20])
