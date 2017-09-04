@@ -19,9 +19,12 @@ def testFunction(testCases, func, funcName):
         result = func(testCase[0])
         desiredResult = testCase[1]
         if result != desiredResult:
+            print('-'*50)
             print('with X = ' + str(testCase[0]))
+            print()
             funcStr = funcName + '(X)'
             print(funcStr + " should be " + str(desiredResult))
+            print()
             print(funcStr + ") = " + str(result))
         else:
             print('.', end='')
