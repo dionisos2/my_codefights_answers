@@ -1,6 +1,18 @@
 # https://codefights.com/arcade/python-arcade/yin-and-yang/ynSRuyh93ZffkPjtv
 
-from utils import benchmark
+from utils import benchmark, testFunction
+
+
+# def calkinWilfSequence(number):
+#     def fractions():
+#         ...
+
+#     gen = fractions()
+#     res = 0
+#     while next(gen) != number:
+#         res += 1
+#     return res
+
 
 def rightBrother(number):
     a, b = number
@@ -116,10 +128,7 @@ testCases = [
 ]
 
 
-for testCase in testCases:
-    print("calkinWilfSequence("+str(testCase[0])+") should be " + str(testCase[1]))
-    print("calkinWilfSequence("+str(testCase[0])+") = " + str(calkinWilfSequenceQuick(testCase[0])))
-
+testFunction(testCases, calkinWilfSequence, 'calkinWilfSequence')
 @benchmark
 def testWithSequence(func):
     calkinWilfSequence([1, 20], func())

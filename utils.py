@@ -13,3 +13,17 @@ def benchmark(func):
         return r
 
     return decoredFunc
+
+def testFunction(testCases, func, funcName):
+    for testCase in testCases:
+        result = func(testCase[0])
+        desiredResult = testCase[1]
+        if result != desiredResult:
+            print('with X = ' + str(testCase[0]))
+            funcStr = funcName + '(X)'
+            print(funcStr + " should be " + str(desiredResult))
+            print(funcStr + ") = " + str(result))
+        else:
+            print('.', end='')
+
+    print('')
