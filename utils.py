@@ -25,7 +25,7 @@ def testFunction(testCases, func, funcName):
             funcStr = funcName + '(X)'
             print(funcStr + " should be " + str(desiredResult))
             print()
-            print(funcStr + ") = " + str(result))
+            print(funcStr + " = " + str(result))
         else:
             print('.', end='')
 
