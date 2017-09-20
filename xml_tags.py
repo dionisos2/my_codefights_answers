@@ -6,14 +6,16 @@ import xml.etree.ElementTree as ET
 
 def depthIter(element):
   stack = []
-  stack.append(iter([element]))
+  stack.append(iter(element))
+  yield (element, 0)
   while stack:
     currentElement = next(stack[-1], None)
     if currentElement is None:
       stack.pop()
     else:
+      yield (currentElement, len(stack))
       stack.append(iter(currentElement))
-      yield (currentElement, len(stack)-2)
+
 
 
 def xmlTags(xml):
